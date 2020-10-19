@@ -141,36 +141,47 @@ La lecture des données au format tabulé est l'occasion de se familliariser ave
 La fonction `read_csv` accepte différents [arguments](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html) de format de données très utiles.
 
 ```python
-df = pandas.read_csv()
+df = pandas.read_csv("data/TCL_wt1.tsv",sep='\t')
 ```
 
 Quel est le type de l'objet `df`?
 ```
-
+type(df)
+pandas.core.frame.DataFrame
 ```
 
 ##### Descriptions d'une table de données
 Que permettent les méthodes suivantes?
 ###### df.shape
 ```
+dimention tableau
+#enlever les lignes abérantes
+df.dropna()
 ```
 ###### df.head
 ```
+affiche le haut du tableau
 ```
 ###### df.tail
 ```
+affiche de bas du tableau
 ```
 ###### df.columns
 ```
+liste de header
 ```
 ###### df.dtypes
 ```
+inféré un type aux colonnes exemple float, str, object(four tout)
 ```
 ###### df.info
 ```
+ex: info memory usage entre autre
 ```
 ###### df.describe
 ```
+affiche tableau avec des colonnes types defini (non object)
+
 ```
 
 ##### Accès aux éléments d'une table de données
@@ -181,6 +192,10 @@ values = df[['Description', 'Gene Symbol']]
 
 Quel est le type de `values` ?
 
+```python
+pandas.core.frame.DataFrame
+``` 
+
 Verifiez si certaines méthodes de `DataFrame` lui sont applicables.
 Ce type supporte l'accès par indice et les slice `[a:b]`
 
@@ -190,16 +205,18 @@ On peut accéder aux valeurs du DataFrame via des indices ou plages d'indice. La
 Il y a différentes manières de le faire, l'utilisation de `.iloc[slice_ligne,slice_colonne]` constitue une des solutions les plus simples. N'oublions pas que shape permet d'obtenir les dimensions (lignes et colonnes) du DataFrame.
 ###### Acceder aux cinq premières lignes de toutes les colonnes
 ```python
-
+df.iloc[:5,:]
 ```
 
 ###### Acceder à toutes les lignes de la dernière colonne
 ```python
+df.iloc[:,[-1]]
 
 ```
 
 ###### Acceder aux cinq premières lignes des colonnes 0, 2 et 3
 ```python
+df.iloc[:5,[0,1,2,3]]
 
 ```
 
@@ -227,7 +244,7 @@ La méthode `loc` permet de selectionner toutes les lignes/colonnes respectant c
 * Contraintes de valeurs continues
 
 ```python
-df.loc[(df['-LOG10 Adj.P-val'] < 0 )  & (df['Log2 Corrected Abundance Ratio'] > 0.0 ) ]
+df.loc[(df['-LOG10 Adj.P-val'] > 0 )  & (df['Log2 Corrected Abundance Ratio'] > 0.0 ) ]
 ```
 
 * Contraintes de valeurs discrètes
